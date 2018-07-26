@@ -1,5 +1,85 @@
-<ul>
-  <li *ngFor="let record of records">Growth: {{record.Growth}}</li>
-</ul>
+<div class="container">
+  <h2 style="margin-bottom: 1.5em; text-align: center">Delhi Population Data</h2>
 
-<button class="primary">Buuton</button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Serial No.</th>
+        <th scope="col">Year</th>
+        <th scope="col">Population</th>
+        <th scope="col">Growth Rate</th>
+        <th scope="col">Growth</th>
+        <th>
+          <!-- Add Button -->
+          <button type="button" data-toggle="modal" (click)="addRecord('add')" data-target="#exampleModal" style="padding: 2px 5px">
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i> Add Record
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let record of records; let i = index">
+      <tr>
+        <th scope="row">{{i + 1}}</th>
+        <td>{{record.Year}}</td>
+        <td>{{record.Population}}</td>
+        <td>{{record.GrowthRate}}</td>
+        <td>{{record.Growth}}</td>
+        <td>
+          <!-- Buttons to EDIT AND DELETE -->
+          <button class="style-btn" (click)="editRecord(record._id, 'edit')" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button>
+          <button class="style-btn" (click)="deleteRecord(record._id, i)">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+
+    <!-- Modal Start -->
+    <div *ngIf="addORedit || singleRecord">
+      <form [formGroup]="populationForm">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Population Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- Year -->
+                <div class="formGroup">
+                  Year
+                  <input type="number" formControlName="Year" class="form-control" placeholder="Year">
+                </div>
+                <!-- Population -->
+                <div class="formGroup">
+                  Population
+                  <input type="number" formControlName="Population" class="form-control" placeholder="Population">
+                </div>
+                <!-- Growth Rate -->
+                <div class="formGroup">
+                  Growth Rate
+                  <input type="text" formControlName="GrowthRate" class="form-control" placeholder="Growth Rate">
+                </div>
+                <!-- Growth -->
+                <div class="formGroup">
+                  Growth
+                  <input type="number" formControlName="Growth" class="form-control" placeholder="Growth">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="populationForm.invalid" data-dismiss="modal">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal End -->
+  </table>
+</div>

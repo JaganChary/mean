@@ -1,11 +1,11 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var path = require('path');
-var http = require('http');
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+const http = require('http');
 
-var app = express();
+const app = express();
 
-var api = require('./server/api');
+const api = require('./server/api');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -23,6 +23,7 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
+// Listening to Port
 server.listen(port, () => {
     console.log('Server is running on port:', port);
 });
